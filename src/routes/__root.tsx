@@ -72,11 +72,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Palm Aura — Beauty, Wellness & Dining for the Whole Family" },
+      { name: "description", content: "Salon, barbershop, nail bar, lash bar, head spa, kids salon & spa, and dining — one destination, one booking, one family." },
+      { property: "og:title", content: "Palm Aura — Beauty, Wellness & Dining for the Whole Family" },
+      { property: "og:description", content: "Salon, barbershop, nail bar, lash bar, head spa, kids salon & spa, and dining — one destination, one booking, one family." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
@@ -98,6 +97,9 @@ function RootShell({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" />
         <HeadContent />
       </head>
       <body>
