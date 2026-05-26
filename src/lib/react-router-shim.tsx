@@ -12,21 +12,40 @@ import {
 type AnchorProps = React.AnchorHTMLAttributes<HTMLAnchorElement>;
 
 export const Link = React.forwardRef<HTMLAnchorElement, AnchorProps & { to: string; replace?: boolean; state?: unknown }>(
-  ({ to, replace, state, ...rest }, ref) => {
-    // TanStack's Link is strictly typed; fall back to anchor for unknown paths.
-    return <TLink ref={ref as any} to={to as any} replace={replace} {...(rest as any)} />;
+  ({ to, replace, state, onClick, ...rest }, ref) => {
+    // Fall back to a plain anchor so legacy paths that don't yet exist as
+    // TanStack routes still navigate via the browser instead of throwing.
+    return (
+      <a
+        ref={ref}
+        href={to}
+        onClick={(e) => {
+          onClick?.(e);
+          if (e.defaultPrevented) return;
+          if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+          e.preventDefault();
+          if (typeof window !== "undefined") {
+            if (replace) window.history.replaceState(null, "", to);
+            window.location.href = to;
+          }
+        }}
+        {...rest}
+      />
+    );
   },
 );
 Link.displayName = "Link";
 
 export function useNavigate() {
-  const navigate = useTNavigate();
   return (to: string | number, opts?: { replace?: boolean; state?: unknown }) => {
     if (typeof to === "number") {
       if (typeof window !== "undefined") window.history.go(to);
       return;
     }
-    navigate({ to: to as any, replace: opts?.replace });
+    if (typeof window !== "undefined") {
+      if (opts?.replace) window.location.replace(to);
+      else window.location.href = to;
+    }
   };
 }
 
