@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
 
   const fetchUserRoles = async (userId: string) => {
-    const { data, error } = await supabase
+    const { data, error } = await (supabase as any)
       .from("user_roles")
       .select("role")
       .eq("user_id", userId);
@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       console.error("Error fetching roles:", error);
       return [];
     }
-    return data?.map((r) => r.role as AppRole) || [];
+    return (data as { role: AppRole }[] | null)?.map((r) => r.role) || [];
   };
 
   useEffect(() => {
@@ -134,7 +134,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const setDemoRole = async (role: AppRole) => {
     try {
-      const { error } = await supabase.rpc("set_demo_role", { _role: role });
+      const { error } = await (supabase as any).rpc("set_demo_role", { _role: role });
       
       if (error) throw error;
       
