@@ -106,10 +106,10 @@ export const LandingFooter = () => {
                     to={link.href}
                     className="text-sm transition-colors"
                     style={{ color: "rgba(255,255,255,0.5)" }}
-                    onMouseEnter={(e) =>
+                    onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) =>
                       (e.currentTarget.style.color = "#b47838")
                     }
-                    onMouseLeave={(e) =>
+                    onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) =>
                       (e.currentTarget.style.color = "rgba(255,255,255,0.5)")
                     }
                   >
