@@ -36,6 +36,15 @@ export const LandingNav = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeBrand, setActiveBrand] = useState<BrandValue>("all");
   const navigate = useNavigate();
+  const { user, signOut } = useAuth();
+
+  const displayName = (user?.user_metadata?.full_name as string) || user?.email?.split("@")[0] || "User";
+  const initials = displayName.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase();
+
+  const handleSignOut = async () => {
+    await signOut();
+    setMobileOpen(false);
+  };
 
   const selectBrand = (value: BrandValue) => {
     setActiveBrand(value);
