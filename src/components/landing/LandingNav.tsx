@@ -147,16 +147,42 @@ export const LandingNav = () => {
           {/* Search + Auth */}
           <div className="hidden lg:flex items-center gap-3">
             <NavServiceSearch />
-            <Button variant="ghost" asChild>
-              <Link to="/auth?mode=login">Log In</Link>
-            </Button>
-            <Button
-              asChild
-              className="font-semibold text-white hover:opacity-90"
-              style={{ background: "#b47838" }}
-            >
-              <Link to="/auth?mode=signup">Sign Up</Link>
-            </Button>
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="flex items-center gap-2 rounded-full pl-1 pr-3 py-1 hover:bg-accent transition-colors">
+                    <Avatar className="h-8 w-8">
+                      <AvatarImage src={(user.user_metadata?.avatar_url as string) || ""} />
+                      <AvatarFallback>{initials}</AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm font-medium">{displayName}</span>
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-52">
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={() => navigate("/dashboard")} className="cursor-pointer gap-2">
+                    <User className="h-4 w-4" style={{ color: "#b47838" }} /> Dashboard
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer gap-2">
+                    <LogOut className="h-4 w-4" style={{ color: "#b47838" }} /> Sign out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <>
+                <Button variant="ghost" asChild>
+                  <Link to="/auth?mode=login">Log In</Link>
+                </Button>
+                <Button
+                  asChild
+                  className="font-semibold text-white hover:opacity-90"
+                  style={{ background: "#b47838" }}
+                >
+                  <Link to="/auth?mode=signup">Sign Up</Link>
+                </Button>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu */}
