@@ -233,16 +233,36 @@ export const LandingNav = () => {
                 className="shrink-0 border-t bg-background/95 backdrop-blur px-6 py-4 flex flex-col gap-2"
                 style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom))" }}
               >
-                <Button variant="outline" asChild>
-                  <Link to="/auth?mode=login">Log In</Link>
-                </Button>
-                <Button
-                  asChild
-                  className="font-semibold text-white hover:opacity-90"
-                  style={{ background: "#b47838" }}
-                >
-                  <Link to="/auth?mode=signup">Sign Up</Link>
-                </Button>
+                {user ? (
+                  <>
+                    <div className="flex items-center gap-3 mb-1">
+                      <Avatar className="h-8 w-8">
+                        <AvatarImage src={(user.user_metadata?.avatar_url as string) || ""} />
+                        <AvatarFallback>{initials}</AvatarFallback>
+                      </Avatar>
+                      <span className="text-sm font-medium truncate">{displayName}</span>
+                    </div>
+                    <Button variant="outline" asChild>
+                      <Link to="/dashboard">Dashboard</Link>
+                    </Button>
+                    <Button variant="ghost" onClick={handleSignOut} className="text-destructive hover:text-destructive">
+                      Sign Out
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Button variant="outline" asChild>
+                      <Link to="/auth?mode=login">Log In</Link>
+                    </Button>
+                    <Button
+                      asChild
+                      className="font-semibold text-white hover:opacity-90"
+                      style={{ background: "#b47838" }}
+                    >
+                      <Link to="/auth?mode=signup">Sign Up</Link>
+                    </Button>
+                  </>
+                )}
               </div>
             </SheetContent>
           </Sheet>
