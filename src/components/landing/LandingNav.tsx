@@ -6,10 +6,14 @@ import {
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { Menu, ChevronDown, Eye, Scissors, Sparkles, Utensils } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Menu, ChevronDown, Eye, Scissors, Sparkles, Utensils, User, LogOut } from "lucide-react";
 import { useState, useEffect } from "react";
 import { NavServiceSearch } from "./NavServiceSearch";
+import { useAuth } from "@/hooks/useAuth";
 
 const brandFilters: { label: string; value: "all" | "adult" | "kids" | "food" | "shop" }[] = [
   { label: "All", value: "all" },
