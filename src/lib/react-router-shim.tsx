@@ -60,7 +60,7 @@ export function useLocation() {
 }
 
 export function useParams<T extends Record<string, string> = Record<string, string>>() {
-  return useTParams() as T;
+  return useTParams({} as any) as T;
 }
 
 export function NavLink(props: AnchorProps & { to: string }) {
