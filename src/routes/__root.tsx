@@ -80,6 +80,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Palm Aura — Beauty, Wellness & Dining for the Whole Family" },
+      { name: "twitter:description", content: "Salon, barbershop, nail bar, lash bar, head spa, kids salon & spa, and dining — one destination, one booking, one family." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/0e82e5c2-82f3-417a-8d0d-2fc14a58de03/id-preview-70ac572a--636bf867-b382-42cc-a906-27e611793b0e.lovable.app-1779904660594.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/0e82e5c2-82f3-417a-8d0d-2fc14a58de03/id-preview-70ac572a--636bf867-b382-42cc-a906-27e611793b0e.lovable.app-1779904660594.png" },
     ],
     links: [
       {
