@@ -108,10 +108,10 @@ function CartPage() {
               <CardHeader><CardTitle>Order Summary</CardTitle></CardHeader>
               <CardContent className="space-y-2">
                 <div className="flex justify-between text-sm"><span>Subtotal</span><span>R{(totalPrice / 100).toFixed(2)}</span></div>
-                {discount.discountCents > 0 && (
+                {discount.discountAmount > 0 && (
                   <div className="flex justify-between text-sm text-green-600">
-                    <span>Package discount ({discount.discountPercent}%)</span>
-                    <span>− R{(discount.discountCents / 100).toFixed(2)}</span>
+                    <span>Package discount ({discount.percent}%)</span>
+                    <span>− R{(discount.discountAmount / 100).toFixed(2)}</span>
                   </div>
                 )}
                 <div className="flex justify-between font-semibold text-lg pt-2 border-t"><span>Total</span><span>R{(finalPrice / 100).toFixed(2)}</span></div>
