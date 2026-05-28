@@ -10,6 +10,8 @@ import {
 
 import appCss from "../styles.css?url";
 import { AuthProvider } from "@/hooks/useAuth";
+import { BookingCartProvider } from "@/hooks/useBookingCart";
+import { Toaster } from "sonner";
 
 function NotFoundComponent() {
   return (
