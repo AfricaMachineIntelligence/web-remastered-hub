@@ -21,6 +21,7 @@ import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as BookingServiceIdRouteImport } from './routes/booking.$serviceId'
 import { Route as AdminStaffRouteImport } from './routes/admin.staff'
 import { Route as AdminServicesRouteImport } from './routes/admin.services'
+import { Route as AdminOrdersRouteImport } from './routes/admin.orders'
 import { Route as AdminBookingsRouteImport } from './routes/admin.bookings'
 
 const ServicesRoute = ServicesRouteImport.update({
@@ -83,6 +84,11 @@ const AdminServicesRoute = AdminServicesRouteImport.update({
   path: '/services',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminOrdersRoute = AdminOrdersRouteImport.update({
+  id: '/orders',
+  path: '/orders',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminBookingsRoute = AdminBookingsRouteImport.update({
   id: '/bookings',
   path: '/bookings',
@@ -99,6 +105,7 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/services': typeof ServicesRoute
   '/admin/bookings': typeof AdminBookingsRoute
+  '/admin/orders': typeof AdminOrdersRoute
   '/admin/services': typeof AdminServicesRoute
   '/admin/staff': typeof AdminStaffRoute
   '/booking/$serviceId': typeof BookingServiceIdRoute
@@ -113,6 +120,7 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/services': typeof ServicesRoute
   '/admin/bookings': typeof AdminBookingsRoute
+  '/admin/orders': typeof AdminOrdersRoute
   '/admin/services': typeof AdminServicesRoute
   '/admin/staff': typeof AdminStaffRoute
   '/booking/$serviceId': typeof BookingServiceIdRoute
@@ -129,6 +137,7 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/services': typeof ServicesRoute
   '/admin/bookings': typeof AdminBookingsRoute
+  '/admin/orders': typeof AdminOrdersRoute
   '/admin/services': typeof AdminServicesRoute
   '/admin/staff': typeof AdminStaffRoute
   '/booking/$serviceId': typeof BookingServiceIdRoute
@@ -146,6 +155,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/services'
     | '/admin/bookings'
+    | '/admin/orders'
     | '/admin/services'
     | '/admin/staff'
     | '/booking/$serviceId'
@@ -160,6 +170,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/services'
     | '/admin/bookings'
+    | '/admin/orders'
     | '/admin/services'
     | '/admin/staff'
     | '/booking/$serviceId'
@@ -175,6 +186,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/services'
     | '/admin/bookings'
+    | '/admin/orders'
     | '/admin/services'
     | '/admin/staff'
     | '/booking/$serviceId'
@@ -279,6 +291,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminServicesRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/orders': {
+      id: '/admin/orders'
+      path: '/orders'
+      fullPath: '/admin/orders'
+      preLoaderRoute: typeof AdminOrdersRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/bookings': {
       id: '/admin/bookings'
       path: '/bookings'
@@ -291,6 +310,7 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteChildren {
   AdminBookingsRoute: typeof AdminBookingsRoute
+  AdminOrdersRoute: typeof AdminOrdersRoute
   AdminServicesRoute: typeof AdminServicesRoute
   AdminStaffRoute: typeof AdminStaffRoute
   AdminIndexRoute: typeof AdminIndexRoute
@@ -298,6 +318,7 @@ interface AdminRouteChildren {
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminBookingsRoute: AdminBookingsRoute,
+  AdminOrdersRoute: AdminOrdersRoute,
   AdminServicesRoute: AdminServicesRoute,
   AdminStaffRoute: AdminStaffRoute,
   AdminIndexRoute: AdminIndexRoute,
