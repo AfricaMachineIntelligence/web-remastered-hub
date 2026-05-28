@@ -19,6 +19,7 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as BookingServiceIdRouteImport } from './routes/booking.$serviceId'
+import { Route as AdminBookingsRouteImport } from './routes/admin.bookings'
 
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
@@ -70,6 +71,11 @@ const BookingServiceIdRoute = BookingServiceIdRouteImport.update({
   path: '/booking/$serviceId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminBookingsRoute = AdminBookingsRouteImport.update({
+  id: '/bookings',
+  path: '/bookings',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -80,6 +86,7 @@ export interface FileRoutesByFullPath {
   '/forgot-password': typeof ForgotPasswordRoute
   '/reset-password': typeof ResetPasswordRoute
   '/services': typeof ServicesRoute
+  '/admin/bookings': typeof AdminBookingsRoute
   '/booking/$serviceId': typeof BookingServiceIdRoute
   '/admin/': typeof AdminIndexRoute
 }
@@ -91,6 +98,7 @@ export interface FileRoutesByTo {
   '/forgot-password': typeof ForgotPasswordRoute
   '/reset-password': typeof ResetPasswordRoute
   '/services': typeof ServicesRoute
+  '/admin/bookings': typeof AdminBookingsRoute
   '/booking/$serviceId': typeof BookingServiceIdRoute
   '/admin': typeof AdminIndexRoute
 }
@@ -104,6 +112,7 @@ export interface FileRoutesById {
   '/forgot-password': typeof ForgotPasswordRoute
   '/reset-password': typeof ResetPasswordRoute
   '/services': typeof ServicesRoute
+  '/admin/bookings': typeof AdminBookingsRoute
   '/booking/$serviceId': typeof BookingServiceIdRoute
   '/admin/': typeof AdminIndexRoute
 }
@@ -118,6 +127,7 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/reset-password'
     | '/services'
+    | '/admin/bookings'
     | '/booking/$serviceId'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
@@ -129,6 +139,7 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/reset-password'
     | '/services'
+    | '/admin/bookings'
     | '/booking/$serviceId'
     | '/admin'
   id:
@@ -141,6 +152,7 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/reset-password'
     | '/services'
+    | '/admin/bookings'
     | '/booking/$serviceId'
     | '/admin/'
   fileRoutesById: FileRoutesById
@@ -229,14 +241,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BookingServiceIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/bookings': {
+      id: '/admin/bookings'
+      path: '/bookings'
+      fullPath: '/admin/bookings'
+      preLoaderRoute: typeof AdminBookingsRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
 interface AdminRouteChildren {
+  AdminBookingsRoute: typeof AdminBookingsRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminBookingsRoute: AdminBookingsRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 
