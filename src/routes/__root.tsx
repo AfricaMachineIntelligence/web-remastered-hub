@@ -10,6 +10,8 @@ import {
 
 import appCss from "../styles.css?url";
 import { AuthProvider } from "@/hooks/useAuth";
+import { BookingCartProvider } from "@/hooks/useBookingCart";
+import { Toaster } from "sonner";
 
 function NotFoundComponent() {
   return (
@@ -121,7 +123,10 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <Outlet />
+        <BookingCartProvider>
+          <Outlet />
+          <Toaster richColors position="top-right" />
+        </BookingCartProvider>
       </AuthProvider>
     </QueryClientProvider>
   );
