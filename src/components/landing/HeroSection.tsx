@@ -44,22 +44,23 @@ export const HeroSection = () => {
         <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Button
             size="lg"
-            onClick={scrollToServices}
+            asChild
             className="font-semibold text-white text-lg px-8 py-6 hover:opacity-90"
             style={{ background: "#b47838" }}
           >
-            Explore Services
+            <Link to="/book">Book Now</Link>
           </Button>
           <Button
             size="lg"
             variant="outline"
-            asChild
+            onClick={scrollToServices}
             className="text-lg px-8 py-6 hover:bg-orange-50/50"
             style={{ borderColor: "rgba(180,120,60,0.35)", color: "#9a6830" }}
           >
-            <Link to="/auth?mode=signup">Sign Up to Book</Link>
+            Explore Services
           </Button>
         </div>
+
 
         <p className="mt-6 text-sm text-gray-500 flex items-center justify-center gap-1">
           <Heart className="h-3 w-3" style={{ color: "#b47838" }} />
