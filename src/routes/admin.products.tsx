@@ -124,8 +124,9 @@ function AdminProducts() {
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <InlineCell label="Price" prefix="R" value={(p.price_cents / 100).toFixed(2)} editing={editCell?.id === p.id && editCell.field === "price"} editState={editCell} setEdit={(v) => setEditCell(v ? { id: p.id, field: "price", value: (p.price_cents / 100).toFixed(2) } : null)} setValue={(v) => setEditCell((c) => c ? { ...c, value: v } : null)} onSave={saveCell} />
-                  <InlineCell label="Stock" value={String(p.stock_quantity)} editing={editCell?.id === p.id && editCell.field === "stock"} editState={editCell} setEdit={(v) => setEditCell(v ? { id: p.id, field: "stock", value: String(p.stock_quantity) } : null)} setValue={(v) => setEditCell((c) => c ? { ...c, value: v } : null)} onSave={saveCell} />
+                  <InlineCell label="Price" prefix="R" value={(p.price_cents / 100).toFixed(2)} editing={editCell?.id === p.id && editCell?.field === "price"} editState={editCell} setEdit={(v) => setEditCell(v ? { id: p.id, field: "price", value: (p.price_cents / 100).toFixed(2) } : null)} setValue={(v) => setEditCell((c) => c ? { ...c, value: v } : null)} onSave={saveCell} />
+                  <InlineCell label="Stock" value={String(p.stock_quantity)} editing={editCell?.id === p.id && editCell?.field === "stock"} editState={editCell} setEdit={(v) => setEditCell(v ? { id: p.id, field: "stock", value: String(p.stock_quantity) } : null)} setValue={(v) => setEditCell((c) => c ? { ...c, value: v } : null)} onSave={saveCell} />
+
                   <Switch checked={p.is_active} onCheckedChange={() => toggleActive(p)} />
                   <Button variant="ghost" size="sm" onClick={() => openEdit(p)}><Pencil className="h-4 w-4" /></Button>
                 </div>
