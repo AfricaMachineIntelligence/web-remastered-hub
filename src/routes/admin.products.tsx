@@ -138,7 +138,7 @@ function AdminProducts() {
   );
 }
 
-function InlineCell({ label, prefix, value, editing, editState, setEdit, setValue, onSave }: any) {
+function InlineCell({ label, prefix, value, editing, editState, setEdit, setValue, onSave }: { label: string; prefix?: string; value: string; editing: boolean; editState: { id: string; field: "price" | "stock"; value: string } | null; setEdit: (v: boolean) => void; setValue: (v: string) => void; onSave: () => void }) {
   if (editing && editState) {
     return (
       <div className="flex items-center gap-1">

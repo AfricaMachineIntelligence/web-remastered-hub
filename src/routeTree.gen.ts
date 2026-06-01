@@ -23,7 +23,9 @@ import { Route as BookingServiceIdRouteImport } from './routes/booking.$serviceI
 import { Route as AdminVouchersRouteImport } from './routes/admin.vouchers'
 import { Route as AdminStaffRouteImport } from './routes/admin.staff'
 import { Route as AdminServicesRouteImport } from './routes/admin.services'
+import { Route as AdminProductsRouteImport } from './routes/admin.products'
 import { Route as AdminOrdersRouteImport } from './routes/admin.orders'
+import { Route as AdminCustomersRouteImport } from './routes/admin.customers'
 import { Route as AdminBookingsRouteImport } from './routes/admin.bookings'
 
 const ServicesRoute = ServicesRouteImport.update({
@@ -96,9 +98,19 @@ const AdminServicesRoute = AdminServicesRouteImport.update({
   path: '/services',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminProductsRoute = AdminProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminOrdersRoute = AdminOrdersRouteImport.update({
   id: '/orders',
   path: '/orders',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminCustomersRoute = AdminCustomersRouteImport.update({
+  id: '/customers',
+  path: '/customers',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminBookingsRoute = AdminBookingsRouteImport.update({
@@ -118,7 +130,9 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/services': typeof ServicesRoute
   '/admin/bookings': typeof AdminBookingsRoute
+  '/admin/customers': typeof AdminCustomersRoute
   '/admin/orders': typeof AdminOrdersRoute
+  '/admin/products': typeof AdminProductsRoute
   '/admin/services': typeof AdminServicesRoute
   '/admin/staff': typeof AdminStaffRoute
   '/admin/vouchers': typeof AdminVouchersRoute
@@ -135,7 +149,9 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/services': typeof ServicesRoute
   '/admin/bookings': typeof AdminBookingsRoute
+  '/admin/customers': typeof AdminCustomersRoute
   '/admin/orders': typeof AdminOrdersRoute
+  '/admin/products': typeof AdminProductsRoute
   '/admin/services': typeof AdminServicesRoute
   '/admin/staff': typeof AdminStaffRoute
   '/admin/vouchers': typeof AdminVouchersRoute
@@ -154,7 +170,9 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/services': typeof ServicesRoute
   '/admin/bookings': typeof AdminBookingsRoute
+  '/admin/customers': typeof AdminCustomersRoute
   '/admin/orders': typeof AdminOrdersRoute
+  '/admin/products': typeof AdminProductsRoute
   '/admin/services': typeof AdminServicesRoute
   '/admin/staff': typeof AdminStaffRoute
   '/admin/vouchers': typeof AdminVouchersRoute
@@ -174,7 +192,9 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/services'
     | '/admin/bookings'
+    | '/admin/customers'
     | '/admin/orders'
+    | '/admin/products'
     | '/admin/services'
     | '/admin/staff'
     | '/admin/vouchers'
@@ -191,7 +211,9 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/services'
     | '/admin/bookings'
+    | '/admin/customers'
     | '/admin/orders'
+    | '/admin/products'
     | '/admin/services'
     | '/admin/staff'
     | '/admin/vouchers'
@@ -209,7 +231,9 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/services'
     | '/admin/bookings'
+    | '/admin/customers'
     | '/admin/orders'
+    | '/admin/products'
     | '/admin/services'
     | '/admin/staff'
     | '/admin/vouchers'
@@ -330,11 +354,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminServicesRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/products': {
+      id: '/admin/products'
+      path: '/products'
+      fullPath: '/admin/products'
+      preLoaderRoute: typeof AdminProductsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/orders': {
       id: '/admin/orders'
       path: '/orders'
       fullPath: '/admin/orders'
       preLoaderRoute: typeof AdminOrdersRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/customers': {
+      id: '/admin/customers'
+      path: '/customers'
+      fullPath: '/admin/customers'
+      preLoaderRoute: typeof AdminCustomersRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/bookings': {
@@ -349,7 +387,9 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteChildren {
   AdminBookingsRoute: typeof AdminBookingsRoute
+  AdminCustomersRoute: typeof AdminCustomersRoute
   AdminOrdersRoute: typeof AdminOrdersRoute
+  AdminProductsRoute: typeof AdminProductsRoute
   AdminServicesRoute: typeof AdminServicesRoute
   AdminStaffRoute: typeof AdminStaffRoute
   AdminVouchersRoute: typeof AdminVouchersRoute
@@ -358,7 +398,9 @@ interface AdminRouteChildren {
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminBookingsRoute: AdminBookingsRoute,
+  AdminCustomersRoute: AdminCustomersRoute,
   AdminOrdersRoute: AdminOrdersRoute,
+  AdminProductsRoute: AdminProductsRoute,
   AdminServicesRoute: AdminServicesRoute,
   AdminStaffRoute: AdminStaffRoute,
   AdminVouchersRoute: AdminVouchersRoute,
