@@ -1,7 +1,7 @@
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useState, useMemo, useEffect } from "react";
-import { AuthGateModal } from "./AuthGateModal";
+import { Link } from "@tanstack/react-router";
+import { useState, useMemo } from "react";
 
 import nailbar from "@/assets/nailbar-1.jpg";
 import headspa from "@/assets/headspa-1.jpg";
@@ -41,8 +41,6 @@ type Filter = "all" | "adult" | "kids" | "food" | "shop";
 const INITIAL_VISIBLE = 8;
 
 export const ServiceCategories = () => {
-  const [authOpen, setAuthOpen] = useState(false);
-  const [selectedService, setSelectedService] = useState("");
   const [filter, setFilter] = useState<Filter>("all");
   const [showAll, setShowAll] = useState(false);
 
@@ -54,25 +52,6 @@ export const ServiceCategories = () => {
   const hasMore = filtered.length > INITIAL_VISIBLE;
   const visible = showAll || !hasMore ? filtered : filtered.slice(0, INITIAL_VISIBLE);
   const hiddenCount = filtered.length - INITIAL_VISIBLE;
-
-  const handleFilterChange = (f: Filter) => {
-    setFilter(f);
-    setShowAll(false);
-  };
-
-  useEffect(() => {
-    const handler = (e: Event) => {
-      const value = (e as CustomEvent).detail as Filter;
-      if (value) handleFilterChange(value);
-    };
-    window.addEventListener("services:set-filter", handler);
-    return () => window.removeEventListener("services:set-filter", handler);
-  }, []);
-
-  const handleBookClick = (brand: string, title: string) => {
-    setSelectedService(`${brand} ${title}`);
-    setAuthOpen(true);
-  };
 
   const filters: { label: string; value: Filter }[] = [
     { label: "All", value: "all" },
@@ -116,6 +95,30 @@ export const ServiceCategories = () => {
           <p className="text-sm md:text-base text-gray-600 max-w-xl mx-auto mb-3">
             One destination. Endless ways to look, feel, and live well.
           </p>
+        </div>
+
+        <div className="flex flex-wrap justify-center gap-2 mb-8">
+          {filters.map((f) => (
+            <button
+              key={f.value}
+              onClick={() => {
+                setFilter(f.value);
+                setShowAll(false);
+              }}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                filter === f.value
+                  ? "text-white"
+                  : "hover:opacity-80"
+              }`}
+              style={{
+                background: filter === f.value ? "#b47838" : "rgba(180,120,60,0.1)",
+                color: filter === f.value ? "#fff" : "#9a6830",
+                border: "1px solid rgba(180,120,60,0.25)",
+              }}
+            >
+              {f.label}
+            </button>
+          ))}
         </div>
 
         {/* 2 rows × 4 columns from md up so all 8 cards fit in two rows */}
@@ -187,21 +190,27 @@ export const ServiceCategories = () => {
                       <Button
                         variant="ghost"
                         size="sm"
+                        asChild
                         className="p-0 h-auto hover:bg-transparent text-sm"
                         style={{ color: "#9a6830" }}
-                        onClick={() => (window.location.href = "/pricing")}
                       >
-                        View prices <ArrowRight className="ml-1 h-3.5 w-3.5" />
+                        <Link to="/services">
+                          View prices <ArrowRight className="ml-1 h-3.5 w-3.5" />
+                        </Link>
                       </Button>
                     )}
                     <Button
                       size="sm"
                       disabled={comingSoon}
-                      onClick={() => !comingSoon && handleBookClick(s.brand, s.title)}
+                      asChild={!comingSoon}
                       className="font-semibold text-white hover:opacity-90 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                       style={{ background: comingSoon ? "#bfa888" : "#b47838" }}
                     >
-                      {comingSoon ? "Soon" : "Book"}
+                      {comingSoon ? (
+                        "Soon"
+                      ) : (
+                        <Link to="/book">Book</Link>
+                      )}
                     </Button>
                   </div>
                 </div>
@@ -225,8 +234,6 @@ export const ServiceCategories = () => {
           </div>
         )}
       </div>
-
-      <AuthGateModal open={authOpen} onOpenChange={setAuthOpen} serviceName={selectedService} />
     </section>
   );
 };
