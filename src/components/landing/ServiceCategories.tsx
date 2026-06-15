@@ -1,7 +1,7 @@
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useState, useMemo, useEffect } from "react";
-import { AuthGateModal } from "./AuthGateModal";
+import { Link } from "@tanstack/react-router";
+import { useState, useMemo } from "react";
 
 import nailbar from "@/assets/nailbar-1.jpg";
 import headspa from "@/assets/headspa-1.jpg";
