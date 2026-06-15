@@ -1,12 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { Sparkles, Heart } from "lucide-react";
 
 export const HeroSection = () => {
-  const scrollToServices = () => {
-    document.querySelector("#services")?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
     <section
       className="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-16"
@@ -53,14 +49,13 @@ export const HeroSection = () => {
           <Button
             size="lg"
             variant="outline"
-            onClick={scrollToServices}
+            asChild
             className="text-lg px-8 py-6 hover:bg-orange-50/50"
             style={{ borderColor: "rgba(180,120,60,0.35)", color: "#9a6830" }}
           >
-            Explore Services
+            <Link to="/services">Explore Services</Link>
           </Button>
         </div>
-
 
         <p className="mt-6 text-sm text-gray-500 flex items-center justify-center gap-1">
           <Heart className="h-3 w-3" style={{ color: "#b47838" }} />
