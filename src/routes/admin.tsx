@@ -2,7 +2,7 @@ import { createFileRoute, Link, Outlet, useLocation } from "@tanstack/react-rout
 import { useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
-import { Loader2, LayoutDashboard, Calendar, Sparkles, Users, ShoppingBag, Ticket, Package, UserSquare2 } from "lucide-react";
+import { Loader2, LayoutDashboard, Calendar, Sparkles, Users, ShoppingBag, Ticket, Package, UserSquare2, ShieldCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/admin")({
@@ -19,6 +19,7 @@ const NAV = [
   { to: "/admin/staff", label: "Staff", icon: Users },
   { to: "/admin/orders", label: "Orders", icon: ShoppingBag },
   { to: "/admin/vouchers", label: "Vouchers", icon: Ticket },
+  { to: "/admin/team", label: "Team & Roles", icon: ShieldCheck },
 ];
 
 function AdminLayout() {
