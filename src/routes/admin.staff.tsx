@@ -25,14 +25,20 @@ function AdminStaff() {
 
   const load = async () => {
     setLoading(true);
-    const { data } = await (supabase as any).from("staff").select("*").order("name");
-    setItems(data || []);
+    const { data } = await (supabase as any)
+      .from("staff")
+      .select("id, name, specialty, is_active, user_id, created_at, updated_at")
+      .order("name");
+    const { data: fin } = await (supabase as any).rpc("get_staff_financials");
+    const finMap = new Map<string, any>((fin || []).map((f: any) => [f.id, f]));
+    setItems((data || []).map((s: any) => ({ ...s, ...(finMap.get(s.id) || {}) })));
     setLoading(false);
   };
   useEffect(() => { load(); }, []);
 
   const openNew = () => { setEditing(null); setForm({ name: "", specialty: "", commission_rate: 0, is_active: true }); setOpen(true); };
   const openEdit = (s: any) => { setEditing(s); setForm({ name: s.name, specialty: s.specialty || "", commission_rate: s.commission_rate || 0, is_active: s.is_active }); setOpen(true); };
+
 
   const save = async () => {
     const payload = { ...form, commission_rate: Number(form.commission_rate) };
