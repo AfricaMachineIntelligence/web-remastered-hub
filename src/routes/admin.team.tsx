@@ -82,11 +82,14 @@ function AdminTeam() {
 
   return (
     <div className="p-6 md:p-8 max-w-6xl">
-      <div className="mb-6">
-        <h1 className="text-3xl font-semibold" style={{ fontFamily: "'Cormorant Garamond', serif" }}>Team & Roles</h1>
-        <p className="text-sm text-muted-foreground mt-1">
-          Grant or revoke roles for any signed-up user. {isOwner ? "As an owner, you can manage all roles including admin and owner." : "Admins cannot grant or revoke admin or owner — ask an owner for those."}
-        </p>
+      <div className="mb-6 flex items-start justify-between gap-4 flex-wrap">
+        <div>
+          <h1 className="text-3xl font-semibold" style={{ fontFamily: "'Cormorant Garamond', serif" }}>Team & Roles</h1>
+          <p className="text-sm text-muted-foreground mt-1">
+            Create staff accounts and grant or revoke roles. {isOwner ? "As an owner, you can manage all roles including admin and owner." : "Admins cannot grant or revoke admin or owner — ask an owner for those."}
+          </p>
+        </div>
+        <CreateUserDialog assignable={assignable} onCreated={load} />
       </div>
 
       <div className="relative mb-4 max-w-md">
