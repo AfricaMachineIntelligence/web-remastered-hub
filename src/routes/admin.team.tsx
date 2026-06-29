@@ -148,3 +148,99 @@ function AdminTeam() {
     </div>
   );
 }
+
+function CreateUserDialog({ assignable, onCreated }: { assignable: AppRole[]; onCreated: () => void }) {
+  const createUser = useServerFn(adminCreateUser);
+  const [open, setOpen] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [email, setEmail] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [password, setPassword] = useState("");
+  const [mode, setMode] = useState<"password" | "invite">("password");
+  const [role, setRole] = useState<AppRole>("frontdesk");
+
+  const reset = () => {
+    setEmail(""); setFullName(""); setPassword(""); setRole("frontdesk"); setMode("password");
+  };
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    try {
+      await createUser({
+        data: {
+          email,
+          fullName: fullName || undefined,
+          password: mode === "password" ? password : undefined,
+          sendInvite: mode === "invite",
+          roles: role === "guest" ? [] : [role],
+        },
+      });
+      toast.success(mode === "invite" ? "Invitation sent" : "User created");
+      reset();
+      setOpen(false);
+      onCreated();
+    } catch (err: any) {
+      toast.error(err?.message || "Failed to create user");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button><UserPlus className="h-4 w-4 mr-2" /> Add team member</Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Add team member</DialogTitle>
+          <DialogDescription>Create a new user account and assign a starting role.</DialogDescription>
+        </DialogHeader>
+        <form onSubmit={submit} className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="cu-email">Email</Label>
+            <Input id="cu-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="cu-name">Full name</Label>
+            <Input id="cu-name" value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="Optional" />
+          </div>
+          <div className="space-y-2">
+            <Label>Setup method</Label>
+            <Select value={mode} onValueChange={(v) => setMode(v as any)}>
+              <SelectTrigger><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="password">Set initial password</SelectItem>
+                <SelectItem value="invite">Send invitation email</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          {mode === "password" && (
+            <div className="space-y-2">
+              <Label htmlFor="cu-pw">Initial password</Label>
+              <Input id="cu-pw" type="text" value={password} onChange={(e) => setPassword(e.target.value)} minLength={6} required placeholder="Min 6 characters" />
+              <p className="text-xs text-muted-foreground">Share securely. The user can reset it after first sign-in.</p>
+            </div>
+          )}
+          <div className="space-y-2">
+            <Label>Role</Label>
+            <Select value={role} onValueChange={(v) => setRole(v as AppRole)}>
+              <SelectTrigger><SelectValue /></SelectTrigger>
+              <SelectContent>
+                {assignable.map((r) => <SelectItem key={r} value={r}>{r}</SelectItem>)}
+              </SelectContent>
+            </Select>
+          </div>
+          <DialogFooter>
+            <Button type="button" variant="ghost" onClick={() => setOpen(false)}>Cancel</Button>
+            <Button type="submit" disabled={submitting}>
+              {submitting && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+              Create
+            </Button>
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
+  );
+}
