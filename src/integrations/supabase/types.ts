@@ -1245,6 +1245,15 @@ export type Database = {
       generate_invoice_number: { Args: never; Returns: string }
       generate_order_number: { Args: never; Returns: string }
       generate_voucher_code: { Args: never; Returns: string }
+      get_staff_financials: {
+        Args: never
+        Returns: {
+          commission_rate: number
+          id: string
+          name: string
+          rental_fee_cents: number
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
